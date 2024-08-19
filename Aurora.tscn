@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://bf3xk75pitfsy"]
+
+[ext_resource type="Shader" path="res://testshader.gdshader" id="1_xrloq"]
+[ext_resource type="Script" path="res://AuroraMap.cs" id="3_elcwx"]
+[ext_resource type="Texture2D" uid="uid://bpujama8is0xq" path="res://noiseTexture (2).png" id="3_lrgtb"]
+[ext_resource type="Texture2D" uid="uid://bkeaq7a0b0eul" path="res://noiseTexture (3).png" id="4_o2380"]
+[ext_resource type="Texture2D" uid="uid://bq0fvya0comn" path="res://noiseTexture (1).png" id="4_wcq8t"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uv2a1"]
+sky_top_color = Color(0.180392, 0.196078, 0.180392, 1)
+sky_horizon_color = Color(0.113512, 0.391346, 0.449803, 1)
+sky_curve = 0.178382
+ground_bottom_color = Color(0.424185, 0.482771, 0.534266, 1)
+ground_horizon_color = Color(0.278343, 0.430508, 0.519299, 1)
+
+[sub_resource type="Sky" id="Sky_fplqq"]
+sky_material = SubResource("ProceduralSkyMaterial_uv2a1")
+
+[sub_resource type="Environment" id="Environment_5lote"]
+background_mode = 2
+sky = SubResource("Sky_fplqq")
+ambient_light_color = Color(0.101165, 0.244263, 0.321271, 1)
+tonemap_mode = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7p7uo"]
+render_priority = 0
+shader = ExtResource("1_xrloq")
+shader_parameter/GreenOffset = 350.0
+shader_parameter/VioletOffset = 1.45
+shader_parameter/ZXStretch = 8.48
+shader_parameter/ZYStretch = 0.01
+shader_parameter/ZTimeFactor = 0.001
+shader_parameter/ZAmplitude = 600.0
+shader_parameter/YAmplitude = 0.4
+shader_parameter/TXStretch = 0.5
+shader_parameter/TYStretch = 10.0
+shader_parameter/TTimeFactor = 0.03
+shader_parameter/FadeFactor = 300.0
+shader_parameter/FadeOffset = -50.0
+shader_parameter/TimeSec = 0.0
+shader_parameter/Width = 10000.0
+shader_parameter/ZMap = ExtResource("4_o2380")
+shader_parameter/YMap = ExtResource("3_lrgtb")
+shader_parameter/DistortionMap = null
+shader_parameter/TransparencyMap = ExtResource("4_o2380")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pmk81"]
+flip_faces = true
+size = Vector2(10000, 10000)
+subdivide_width = 255
+subdivide_depth = 255
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5lote")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("mapdisplay")]
+material_override = SubResource("ShaderMaterial_7p7uo")
+mesh = SubResource("PlaneMesh_pmk81")
+script = ExtResource("3_elcwx")
+mapdisplay = NodePath("../TextureRect")
+SheetTexture = ExtResource("4_wcq8t")
+ScrollSpeed = 0.1
+DistortionMaxCD = 1.0
+Distortions = 7
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

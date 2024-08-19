@@ -1,0 +1,129 @@
+[gd_scene load_steps=3 format=3 uid="uid://qlg13q8ll4e7"]
+
+[ext_resource type="Texture2D" uid="uid://c8l2kpwn7u0wq" path="res://icon.svg" id="1_dpa2e"]
+[ext_resource type="Script" path="res://Player/UI/MovesetUI.cs" id="2_0ook3"]
+
+[node name="MovesetUI" type="Control" node_paths=PackedStringArray("MovesetIcons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_0ook3")
+Empty = ExtResource("1_dpa2e")
+MovesetIcons = [NodePath("Current/HFlowContainer/TextureRect"), NodePath("Current/HFlowContainer/TextureRect2"), NodePath("Current/HFlowContainer/TextureRect3"), NodePath("Current/HFlowContainer/TextureRect4"), NodePath("Next/HFlowContainer/TextureRect"), NodePath("Next/HFlowContainer/TextureRect2"), NodePath("Next/HFlowContainer/TextureRect3"), NodePath("Next/HFlowContainer/TextureRect4"), NodePath("NextNext/HFlowContainer/TextureRect"), NodePath("NextNext/HFlowContainer/TextureRect2"), NodePath("NextNext/HFlowContainer/TextureRect3"), NodePath("NextNext/HFlowContainer/TextureRect4")]
+
+[node name="NextNext" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029
+anchor_top = 0.955
+anchor_right = 0.029
+anchor_bottom = 0.955
+offset_left = 39.592
+offset_top = -133.84
+offset_right = 563.592
+offset_bottom = -5.84003
+scale = Vector2(0.5, 0.5)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="NextNext"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NextNext/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.764706)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect2" type="TextureRect" parent="NextNext/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.764706)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect3" type="TextureRect" parent="NextNext/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.764706)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect4" type="TextureRect" parent="NextNext/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.764706)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="Next" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029
+anchor_top = 0.955
+anchor_right = 0.029
+anchor_bottom = 0.955
+offset_left = 19.592
+offset_top = -98.84
+offset_right = 543.592
+offset_bottom = 29.16
+scale = Vector2(0.5, 0.5)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Next"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Next/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.882353)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect2" type="TextureRect" parent="Next/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.882353)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect3" type="TextureRect" parent="Next/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.882353)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect4" type="TextureRect" parent="Next/HFlowContainer"]
+modulate = Color(1, 1, 1, 0.882353)
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="Current" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029
+anchor_top = 0.955
+anchor_right = 0.029
+anchor_bottom = 0.955
+offset_left = -0.408001
+offset_top = -63.84
+offset_right = 523.592
+offset_bottom = 64.16
+scale = Vector2(0.5, 0.5)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Current"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Current/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect2" type="TextureRect" parent="Current/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect3" type="TextureRect" parent="Current/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect4" type="TextureRect" parent="Current/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("1_dpa2e")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0.498039)
+layout_mode = 0
+offset_left = 569.6
+offset_top = 317.6
+offset_right = 697.6
+offset_bottom = 445.6
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_dpa2e")

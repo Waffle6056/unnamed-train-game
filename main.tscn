@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://bef36ejw2e351"]
+
+[ext_resource type="PackedScene" uid="uid://dvwcc2n2u1gej" path="res://TrainCarts/TrainHead.tscn" id="1_l34kq"]
+[ext_resource type="PackedScene" uid="uid://qlg13q8ll4e7" path="res://Player/UI/MovesetUI.tscn" id="1_w27dm"]
+[ext_resource type="Resource" uid="uid://bmask0lt1bgd7" path="res://TrainConfigs/TestConfig/TestConfig.tres" id="2_0rc4g"]
+[ext_resource type="PackedScene" uid="uid://dvdpommi2topm" path="res://Player/Main/player.tscn" id="2_4kamc"]
+[ext_resource type="PackedScene" uid="uid://db6054j6vfeoo" path="res://Tracks/testtrack2.tscn" id="4_qrv1w"]
+[ext_resource type="PackedScene" uid="uid://w5afdy0n16ev" path="res://Enemies/Kamikaze/Kamikaze.tscn" id="6_q6vvc"]
+[ext_resource type="PackedScene" uid="uid://btbs6ens3u2wq" path="res://TrainConfigs/TrainConfigUi/InventoryController.tscn" id="6_yuk0a"]
+[ext_resource type="PackedScene" uid="uid://by2pu1dxo3np4" path="res://Enemies/Spitter/Spitter.tscn" id="7_kqrjk"]
+[ext_resource type="PackedScene" uid="uid://cj0cvo7rgd4tc" path="res://Enemies/Fish/Fish.tscn" id="8_larcg"]
+[ext_resource type="PackedScene" uid="uid://qclxxw0jn4hp" path="res://testterrain.glb" id="10_tm2eo"]
+[ext_resource type="PackedScene" uid="uid://bf3xk75pitfsy" path="res://Aurora.tscn" id="11_dtqd6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5v55o"]
+sky_top_color = Color(0.180392, 0.196078, 0.180392, 1)
+sky_horizon_color = Color(0.113512, 0.391346, 0.449803, 1)
+sky_curve = 0.178382
+ground_bottom_color = Color(0.424185, 0.482771, 0.534266, 1)
+ground_horizon_color = Color(0.278343, 0.430508, 0.519299, 1)
+
+[sub_resource type="Sky" id="Sky_3sk1r"]
+sky_material = SubResource("ProceduralSkyMaterial_5v55o")
+
+[sub_resource type="Environment" id="Environment_w8ngs"]
+background_mode = 2
+sky = SubResource("Sky_3sk1r")
+ambient_light_color = Color(0.101165, 0.244263, 0.321271, 1)
+tonemap_mode = 3
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_om3r0"]
+
+[node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019166, -3.8147e-06, -0.996309)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w8ngs")
+
+[node name="TrainHead" parent="." node_paths=PackedStringArray("MovesetUI") instance=ExtResource("1_l34kq")]
+Config = ExtResource("2_0rc4g")
+SpeedBase = 1.0
+MovesetUI = NodePath("../MovesetUI")
+
+[node name="Player" parent="." node_paths=PackedStringArray("TrainHead") instance=ExtResource("2_4kamc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47237, 0)
+TrainHead = NodePath("../TrainHead")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_om3r0")
+
+[node name="TargetCursor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.4017, 0)
+
+[node name="TrackController" parent="." instance=ExtResource("4_qrv1w")]
+
+[node name="MovesetUI" parent="." instance=ExtResource("1_w27dm")]
+
+[node name="InventoryController" parent="." node_paths=PackedStringArray("TrainHead") instance=ExtResource("6_yuk0a")]
+visible = false
+TrainHead = NodePath("../TrainHead")
+
+[node name="Kamikaze" parent="." instance=ExtResource("6_q6vvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.59299, -10.5069, -342.534)
+
+[node name="Kamikaze2" parent="." instance=ExtResource("6_q6vvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7526, 0, -254.813)
+
+[node name="Kamikaze3" parent="." instance=ExtResource("6_q6vvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.153, -23.7857, -521.241)
+
+[node name="Spitter" parent="." instance=ExtResource("7_kqrjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6093, 0, -391.063)
+
+[node name="Spitter2" parent="." instance=ExtResource("7_kqrjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.09149, 0, -395.677)
+
+[node name="Spitter3" parent="." instance=ExtResource("7_kqrjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0293, 0, -372.757)
+
+[node name="Fish" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0841, 0, -447.014)
+
+[node name="Fish2" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.2383, 0, -439.164)
+
+[node name="Fish3" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6702, 0, -384.445)
+
+[node name="Fish4" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9559, 0, -354.029)
+
+[node name="Fish5" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.0781, 3.8147e-06, -313.939)
+
+[node name="Fish6" parent="." instance=ExtResource("8_larcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.6103, 0, -364.859)
+
+[node name="testterrain" parent="." instance=ExtResource("10_tm2eo")]
+
+[node name="Node3D" parent="." instance=ExtResource("11_dtqd6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 600, 0)

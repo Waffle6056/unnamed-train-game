@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=8 format=3 uid="uid://bmask0lt1bgd7"]
+
+[ext_resource type="Resource" uid="uid://clwopumiiqhig" path="res://TrainConfigs/TestConfig/mv1.tres" id="1_mgxvl"]
+[ext_resource type="Script" path="res://TrainConfigs/TrainConfig.cs" id="1_nnhyx"]
+[ext_resource type="Resource" uid="uid://dwj8ufl1v45pk" path="res://TrainConfigs/TestConfig/mv2.tres" id="2_c13j7"]
+[ext_resource type="Resource" uid="uid://b2gahbpg2je86" path="res://TrainConfigs/TestConfig/tst2.tres" id="3_bje6q"]
+[ext_resource type="Resource" uid="uid://dsel4qmxop1kk" path="res://TrainConfigs/TestConfig/tst1.tres" id="4_anjpc"]
+[ext_resource type="Resource" uid="uid://c8bc8majsi14w" path="res://TrainConfigs/TestConfig/tst3.tres" id="5_txcho"]
+[ext_resource type="Resource" uid="uid://i6trutoy4awc" path="res://TrainConfigs/TestConfig/tst4.tres" id="6_bcuxt"]
+
+[resource]
+script = ExtResource("1_nnhyx")
+TrainData = Array[Resource]([ExtResource("4_anjpc"), ExtResource("3_bje6q"), ExtResource("5_txcho"), ExtResource("6_bcuxt")])
+WeightCurrent = 0.0
+Movesets = Array[Resource]([ExtResource("1_mgxvl"), ExtResource("2_c13j7")])
+Name = ""
+Fuel = 100.0

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://clwopumiiqhig"]
+
+[ext_resource type="Resource" uid="uid://dsel4qmxop1kk" path="res://TrainConfigs/TestConfig/tst1.tres" id="1_0oghx"]
+[ext_resource type="Resource" uid="uid://b2gahbpg2je86" path="res://TrainConfigs/TestConfig/tst2.tres" id="2_7ulbl"]
+[ext_resource type="Resource" uid="uid://c8bc8majsi14w" path="res://TrainConfigs/TestConfig/tst3.tres" id="3_emh5v"]
+[ext_resource type="Script" path="res://TrainConfigs/Moveset.cs" id="3_pqg71"]
+[ext_resource type="Resource" uid="uid://i6trutoy4awc" path="res://TrainConfigs/TestConfig/tst4.tres" id="4_32fbh"]
+
+[resource]
+script = ExtResource("3_pqg71")
+AssignedCarts = Array[Resource]([ExtResource("1_0oghx"), ExtResource("2_7ulbl"), ExtResource("3_emh5v"), ExtResource("4_32fbh")])

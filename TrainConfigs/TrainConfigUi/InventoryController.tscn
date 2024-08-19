@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://btbs6ens3u2wq"]
+
+[ext_resource type="Script" path="res://TrainConfigs/TrainConfigUi/InventoryController.cs" id="1_tycm3"]
+[ext_resource type="Resource" uid="uid://bmask0lt1bgd7" path="res://TrainConfigs/TestConfig/TestConfig.tres" id="2_1urwi"]
+[ext_resource type="PackedScene" uid="uid://bt1ubtx6sdkx5" path="res://TrainConfigs/TrainConfigUi/ItemCart.tscn" id="2_qw7fw"]
+[ext_resource type="PackedScene" uid="uid://bxdsm1g7p4rbl" path="res://TrainConfigs/TrainConfigUi/ItemCartInstance.tscn" id="3_8wkv0"]
+[ext_resource type="Resource" uid="uid://cdltsepesur2n" path="res://TrainCarts/EnergyBeam/EnergyBeamCart.tres" id="3_sseq5"]
+[ext_resource type="Resource" uid="uid://crw54a5ftiiof" path="res://TrainCarts/Mortar/MortarCart.tres" id="4_eqcfc"]
+[ext_resource type="PackedScene" uid="uid://c7n5solgk6k11" path="res://TrainConfigs/TrainConfigUi/ItemCartToggle.tscn" id="4_lp4lr"]
+[ext_resource type="Resource" uid="uid://c8sillmqd844f" path="res://TrainCarts/Rocket/RocketCart.tres" id="5_s7b1q"]
+[ext_resource type="Resource" uid="uid://bly20kbvf1m2w" path="res://TrainCarts/Shotgun/ShotgunCart.tres" id="6_jc1vj"]
+[ext_resource type="Texture2D" uid="uid://c8l2kpwn7u0wq" path="res://icon.svg" id="9_f1wc3"]
+
+[node name="InventoryController" type="Control" node_paths=PackedStringArray("CartContainer", "MovesetContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tycm3")
+CurrentConfig = ExtResource("2_1urwi")
+ItemCartInstance = ExtResource("3_8wkv0")
+ItemCartToggle = ExtResource("4_lp4lr")
+CartContainer = NodePath("CartScroll/CartContainer")
+MovesetContainer = NodePath("ScrollContainer2/InventoryGrid")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 2
+anchor_right = 0.489
+anchor_bottom = 0.77
+offset_left = 38.0
+offset_top = 48.0
+offset_right = -0.328003
+offset_bottom = 0.039978
+
+[node name="InventoryGrid" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="EnergyBeamItem" parent="ScrollContainer/InventoryGrid" node_paths=PackedStringArray("Controller") instance=ExtResource("2_qw7fw")]
+layout_mode = 2
+Data = ExtResource("3_sseq5")
+Controller = NodePath("../../..")
+
+[node name="MortarItem" parent="ScrollContainer/InventoryGrid" node_paths=PackedStringArray("Controller") instance=ExtResource("2_qw7fw")]
+layout_mode = 2
+Data = ExtResource("4_eqcfc")
+Controller = NodePath("../../..")
+
+[node name="RocketItem" parent="ScrollContainer/InventoryGrid" node_paths=PackedStringArray("Controller") instance=ExtResource("2_qw7fw")]
+layout_mode = 2
+Data = ExtResource("5_s7b1q")
+Controller = NodePath("../../..")
+
+[node name="ShotgunItem" parent="ScrollContainer/InventoryGrid" node_paths=PackedStringArray("Controller") instance=ExtResource("2_qw7fw")]
+layout_mode = 2
+Data = ExtResource("6_jc1vj")
+Controller = NodePath("../../..")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 2
+anchor_left = 0.504
+anchor_right = 0.997
+anchor_bottom = 0.762
+offset_left = 0.391968
+offset_top = 48.0
+offset_right = -41.5441
+offset_bottom = 0.223999
+
+[node name="InventoryGrid" type="GridContainer" parent="ScrollContainer2"]
+layout_mode = 2
+columns = 4
+
+[node name="AddRow" type="TextureButton" parent="."]
+layout_mode = 2
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -145.0
+offset_right = -17.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("9_f1wc3")
+
+[node name="RemoveRow" type="TextureButton" parent="."]
+layout_mode = 2
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -209.0
+offset_right = -81.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("9_f1wc3")
+
+[node name="CartScroll" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.761
+anchor_right = 1.003
+anchor_bottom = 1.0
+offset_top = -0.128021
+offset_right = 0.543945
+vertical_scroll_mode = 0
+
+[node name="CartContainer" type="VFlowContainer" parent="CartScroll"]
+layout_mode = 2
+
+[node name="Control" type="TextureRect" parent="CartScroll/CartContainer"]
+layout_mode = 2
+texture = ExtResource("9_f1wc3")
+
+[connection signal="button_down" from="AddRow" to="." method="AddRow"]
+[connection signal="button_down" from="RemoveRow" to="." method="RemoveRow"]

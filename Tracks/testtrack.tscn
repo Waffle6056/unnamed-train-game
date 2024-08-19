@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5n6ubyqdg8dt"]
+
+[ext_resource type="Script" path="res://Tracks/Track.cs" id="1_1iavh"]
+
+[sub_resource type="Curve3D" id="Curve3D_dkbit"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.0165784, 0, -0.0481741, -1.36649, 0, 22.4495, 1.36649, 0, -22.4495, 12.9264, 0.00012207, -43.3158, 0, 0, 0, 0, 0, 0, 15.8546, 0, -76.5021),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_bcs5e"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.0327236, 0, 0.0742169, 0, 0, 0, 0, 0, 0, -0.240739, 0, 0.512534, 0, 0, 0, 0, 0, 0, -10.9291, 0, 5.07914, 0, 0, 0, 0, 0, 0, -19.1786, 0, 0.188714),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_rjw5b"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.013037, 0, 0.0784355, 0, 0, 0, 0, 0, 0, -0.127561, 0, 0.769574, 0, 0, 0, 0, 0, 0, -1.57738, 0, 2.08629, 0, 0, 0, 0, 0, 0, -19.9243, 0.00012207, 27.0683),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_0ckwn"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.00946194, 0, 0.0742169, 0, 0, 0, 0, 0, 0, 0.407651, 0, 1.26391, 0, 0, 0, 0, 0, 0, 4.82432, 0, 3.39411, 0, 0, 0, 0, 0, 0, 7.78019, 0, 1.31779, 0, 0, 0, 0, 0, 0, 7.07367, 0, -1.10459),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_hmmr7"]
+_data = {
+"points": PackedVector3Array(0.36372, 0, 0.389458, -0.36372, 0, -0.389458, 15.8277, 0, -76.7903, 16.6797, 0, 16.6797, -16.6797, 0, -16.6797, 3.02046, 0, -153.791, 30.0234, 0, -5.00391, -30.0234, 0, 5.00391, -56.1923, 0, -165.467, 0.0601425, 0, -0.0597229, -0.0601425, 0, 0.0597229, -93.3045, 0, -149.204),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_fl76k"]
+_data = {
+"points": PackedVector3Array(2.17259, 0, -18.5794, 0, 0, 0, -93.3266, 0, -149.181, 0, 0, -14.6445, 0, 0, 14.6445, -99.4118, 0, -123.852, 0, 0, 0, 0, 0, 0, -93.4266, 0, -95.808),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_0u8o0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -93.3415, 0, -149.193, 0, 0, 0, 0, 0, 0, -119.502, 0, -134.631, 0, 0, 0, 0, 0, 0, -130.897, 0, -119.372, 0, 0, 0, 0, 0, 0, -136.885, 0, -102.182),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_e7vt5"]
+_data = {
+"points": PackedVector3Array(-0.00860023, 0, 0.0469742, 0.00860023, 0, -0.0469742, 15.8723, 0, -76.7914, 0, 0, 0, 0, 0, 0, 61.494, 0, -184.666),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_of0wl"]
+_data = {
+"points": PackedVector3Array(-0.0427551, 0, 0.0921936, 0.0427551, 0, -0.0921936, 15.9377, 0, -76.7548, -40.7608, 0, 3.92351, 40.7608, 0, -3.92351, 67.9645, -0.000366211, -107.068, 0, 0, 0, 0, 0, 0, 133.064, -0.000366211, -93.35),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="TrackController" type="Node3D"]
+
+[node name="Path1-1" type="Path3D" parent="." node_paths=PackedStringArray("ForwardsExits", "BackwardsExits")]
+curve = SubResource("Curve3D_dkbit")
+script = ExtResource("1_1iavh")
+ForwardsExits = [NodePath("../Path1-2"), NodePath("../Path2-1"), NodePath("../Path2-2")]
+ForwardsDirs = PackedInt32Array(1, 1, 1)
+BackwardsExits = [NodePath("../Path6-1"), NodePath("../Path5-1"), NodePath("../Path1-0")]
+BackwardsDirs = PackedInt32Array(1, 1, 1)
+
+[node name="Path1-0" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_bcs5e")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(1)
+
+[node name="Path5-1" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_rjw5b")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(1)
+
+[node name="Path6-1" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_0ckwn")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(1)
+
+[node name="Path1-2" type="Path3D" parent="." node_paths=PackedStringArray("ForwardsExits", "BackwardsExits")]
+curve = SubResource("Curve3D_hmmr7")
+script = ExtResource("1_1iavh")
+ForwardsExits = [NodePath("../Path1-3"), NodePath("../Path4-1")]
+ForwardsDirs = PackedInt32Array(1, 1)
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(0)
+
+[node name="Path1-3" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_fl76k")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-2")]
+BackwardsDirs = PackedInt32Array(0)
+
+[node name="Path4-1" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_0u8o0")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-2")]
+BackwardsDirs = PackedInt32Array(0)
+
+[node name="Path2-1" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_e7vt5")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(0)
+
+[node name="Path2-2" type="Path3D" parent="." node_paths=PackedStringArray("BackwardsExits")]
+curve = SubResource("Curve3D_of0wl")
+script = ExtResource("1_1iavh")
+BackwardsExits = [NodePath("../Path1-1")]
+BackwardsDirs = PackedInt32Array(0)

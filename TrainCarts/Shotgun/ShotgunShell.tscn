@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0tgjbhhomxye"]
+
+[ext_resource type="Texture2D" uid="uid://c8l2kpwn7u0wq" path="res://icon.svg" id="1_47q7t"]
+[ext_resource type="Script" path="res://TrainCarts/Shotgun/ShotgunShell.cs" id="1_wn8ty"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_as5aa"]
+
+[node name="ShotgunShell" type="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+collision_layer = 0
+script = ExtResource("1_wn8ty")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_as5aa")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("1_47q7t")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

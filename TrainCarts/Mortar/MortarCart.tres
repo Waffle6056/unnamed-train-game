@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://crw54a5ftiiof"]
+
+[ext_resource type="PackedScene" uid="uid://c80ecc3i4kemm" path="res://TrainCarts/Mortar/MortarCart.tscn" id="1_86jr5"]
+[ext_resource type="Texture2D" uid="uid://bg2jdwx0afdvj" path="res://TrainCarts/Mortar/tmortaricon.png" id="2_aw0ee"]
+[ext_resource type="Script" path="res://TrainConfigs/CartData.cs" id="3_w3ypj"]
+
+[resource]
+script = ExtResource("3_w3ypj")
+CartScene = ExtResource("1_86jr5")
+Icon = ExtResource("2_aw0ee")

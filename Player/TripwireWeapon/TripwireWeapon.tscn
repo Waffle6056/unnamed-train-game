@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3wevodmkyh0x"]
+
+[ext_resource type="Script" path="res://Player/TripwireWeapon/TripwireWeapon.cs" id="1_k4247"]
+[ext_resource type="PackedScene" uid="uid://jsc0mxe37vt4" path="res://Player/TripwireWeapon/WirePoint.tscn" id="2_r4w0q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xu04k"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hs31"]
+transparency = 1
+albedo_color = Color(0.501961, 0, 0, 0.419608)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u1t6j"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_5hs31")
+top_radius = 0.05
+bottom_radius = 0.05
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hq877"]
+emission_shape_offset = Vector3(0, -1, 0)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tysgd"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Skin" id="Skin_k0g81"]
+
+[node name="TripwireWeapon" type="Area3D" node_paths=PackedStringArray("PointOne", "PointTwo", "Wire", "WireMesh")]
+collision_layer = 0
+script = ExtResource("1_k4247")
+PointOne = NodePath("WirePoint")
+PointTwo = NodePath("WirePoint2")
+Wire = NodePath("CollisionShape3D")
+WireMesh = NodePath("MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xu04k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_u1t6j")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MeshInstance3D"]
+visible = false
+process_material = SubResource("ParticleProcessMaterial_hq877")
+draw_pass_1 = SubResource("SphereMesh_tysgd")
+draw_skin = SubResource("Skin_k0g81")
+
+[node name="WirePoint" parent="." instance=ExtResource("2_r4w0q")]
+
+[node name="WirePoint2" parent="." instance=ExtResource("2_r4w0q")]
+
+[connection signal="body_entered" from="." to="." method="Tripped"]

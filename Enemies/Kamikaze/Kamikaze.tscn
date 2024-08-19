@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://w5afdy0n16ev"]
+
+[ext_resource type="Script" path="res://Enemies/Kamikaze/Kamikaze.cs" id="1_qqepv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8nrxw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmi48"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_58y6p"]
+material = SubResource("StandardMaterial3D_xmi48")
+
+[node name="Kamikaze" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_qqepv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8nrxw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_58y6p")

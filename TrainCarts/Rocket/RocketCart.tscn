@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://ds1pq0x4r5ul2"]
+
+[ext_resource type="Script" path="res://TrainCarts/Rocket/RocketCart.cs" id="1_8jbpy"]
+[ext_resource type="PackedScene" uid="uid://dlsvi6tdf1sbf" path="res://TrainCarts/TestCart/traincartsample.glb" id="1_m0rpt"]
+[ext_resource type="AudioStream" uid="uid://cdyxuunrab5p8" path="res://TrainCarts/metal-pipe-falling-sound-effect-made-with-Voicemod.mp3" id="3_2e8ql"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x01xl"]
+size = Vector3(1, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0osry"]
+size = Vector3(1.18386, 3.08542, 0.001)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s4yxy"]
+size = Vector3(1.184, 1.00265, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01514"]
+size = Vector3(0, 3.06514, 10.4201)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7n1bi"]
+size = Vector3(3.812, 0.27, 12)
+
+[node name="RocketCart" type="AnimatableBody3D" node_paths=PackedStringArray("audiotest")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_8jbpy")
+audiotest = NodePath("AudioStreamPlayer3D")
+
+[node name="traincartsample" parent="." instance=ExtResource("1_m0rpt")]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 2, 0)
+
+[node name="GunMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003, 5.59, -0.128)
+mesh = SubResource("BoxMesh_x01xl")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.189, 1.782, -5.22)
+shape = SubResource("BoxShape3D_0osry")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.189, 1.782, -5.22)
+shape = SubResource("BoxShape3D_0osry")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002, 2.824, -5.22)
+shape = SubResource("BoxShape3D_s4yxy")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.776, 1.791, -0.003)
+shape = SubResource("BoxShape3D_01514")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.776, 1.791, -0.003)
+shape = SubResource("BoxShape3D_01514")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -0.000244346, 0, 0.000244346, 1, 0, 0, 0, 1, 1.189, 1.796, 5.224)
+shape = SubResource("BoxShape3D_0osry")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -0.000244346, 0, 0.000244346, 1, 0, 0, 0, 1, -1.19, 1.796, 5.224)
+shape = SubResource("BoxShape3D_0osry")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -0.000244346, 0, 0.000244346, 1, 0, 0, 0, 1, -0.003, 2.838, 5.224)
+shape = SubResource("BoxShape3D_s4yxy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003, 0.118, 0.007)
+shape = SubResource("BoxShape3D_7n1bi")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CollisionShape3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0153368, 0)
+size = Vector3(3.812, 0.27, 12)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_2e8ql")
+max_polyphony = 3

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c8sillmqd844f"]
+
+[ext_resource type="PackedScene" uid="uid://ds1pq0x4r5ul2" path="res://TrainCarts/Rocket/RocketCart.tscn" id="1_3g8mn"]
+[ext_resource type="Texture2D" uid="uid://dmqaxo2o8jtqv" path="res://TrainCarts/Rocket/trocketicon.png" id="2_l0oci"]
+[ext_resource type="Script" path="res://TrainConfigs/CartData.cs" id="3_8p4o5"]
+
+[resource]
+script = ExtResource("3_8p4o5")
+CartScene = ExtResource("1_3g8mn")
+Icon = ExtResource("2_l0oci")

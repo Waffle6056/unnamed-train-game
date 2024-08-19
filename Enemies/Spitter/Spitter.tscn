@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://by2pu1dxo3np4"]
+
+[ext_resource type="Script" path="res://Enemies/Spitter/Spitter.cs" id="1_7v3fd"]
+[ext_resource type="PackedScene" uid="uid://cr6u0s8rkrhq3" path="res://Enemies/Spitter/drone.glb" id="2_gq62h"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2fyxk"]
+radius = 1.0
+
+[node name="Spitter" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_7v3fd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2fyxk")
+
+[node name="drone" parent="." instance=ExtResource("2_gq62h")]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 0, 0, 0)

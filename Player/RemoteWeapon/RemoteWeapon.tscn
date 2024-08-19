@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmvng13u0ida6"]
+
+[ext_resource type="Script" path="res://Player/RemoteWeapon/RemoteWeapon.cs" id="1_k1slf"]
+[ext_resource type="PackedScene" uid="uid://dckek7crgffci" path="res://Player/RemoteWeapon/pocketwatch.glb" id="2_qq3d0"]
+[ext_resource type="Texture2D" uid="uid://q001n5jt0qo2" path="res://Player/RemoteWeapon/Clock-Face-Clip-Art-Roman-Numerals-Mini-GraphicsFairy.png" id="3_c24yo"]
+[ext_resource type="PackedScene" uid="uid://d30hnjyi0e10h" path="res://Player/RemoteWeapon/pocketwatchlid.glb" id="4_88nyr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jrydv"]
+albedo_color = Color(0.52549, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mguwb"]
+material = SubResource("StandardMaterial3D_jrydv")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ha55p"]
+size = Vector3(0.3, 0.2, 0.1)
+
+[node name="RemoteWeapon" type="StaticBody3D" node_paths=PackedStringArray("ProjectileMesh", "AttachedMesh")]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_k1slf")
+ProjectileMesh = NodePath("ProjectileModel")
+AttachedMesh = NodePath("AttachedModel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_mguwb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0142332, 0.0530225)
+shape = SubResource("BoxShape3D_ha55p")
+
+[node name="ProjectileModel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.0632349, 0)
+
+[node name="pocketwatch" parent="ProjectileModel" instance=ExtResource("2_qq3d0")]
+transform = Transform3D(5.70918e-16, 1.30611e-08, 0.298803, 0.298803, -1.30611e-08, 0, 1.30611e-08, 0.298803, -1.30611e-08, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="ProjectileModel"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0.10041)
+texture = ExtResource("3_c24yo")
+
+[node name="pocketwatchlid" parent="ProjectileModel" instance=ExtResource("4_88nyr")]
+transform = Transform3D(0.299, 0, 0, 0, -1.30697e-08, -0.299, 0, 0.299, -1.30697e-08, 0, 0, 0.005)
+visible = false
+
+[node name="AttachedModel" type="Node3D" parent="."]
+visible = false
+
+[node name="pocketwatch" parent="AttachedModel" instance=ExtResource("2_qq3d0")]
+transform = Transform3D(5.70918e-16, 1.30611e-08, 0.298803, 0.298803, -1.30611e-08, 0, 1.30611e-08, 0.298803, -1.30611e-08, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="AttachedModel"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0.10041)
+texture = ExtResource("3_c24yo")
+
+[node name="pocketwatchlid" parent="AttachedModel" instance=ExtResource("4_88nyr")]
+transform = Transform3D(0.299, 0, 0, 0, -1.30697e-08, -0.299, 0, 0.299, -1.30697e-08, 0, 0, 0.005)
+visible = false
+
+[connection signal="child_entered_tree" from="." to="." method="ChildAdded"]

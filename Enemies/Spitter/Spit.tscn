@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf3fjotk6bjjy"]
+
+[ext_resource type="Script" path="res://Enemies/Spitter/Spit.cs" id="1_360qn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b6waa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylqfk"]
+albedo_color = Color(0.494118, 1, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_g7ena"]
+material = SubResource("StandardMaterial3D_ylqfk")
+
+[node name="Spit" type="Area3D"]
+script = ExtResource("1_360qn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b6waa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_g7ena")

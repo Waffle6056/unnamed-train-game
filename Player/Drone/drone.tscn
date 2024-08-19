@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhijvvrkrl682"]
+
+[ext_resource type="Script" path="res://Player/Drone/Drone.cs" id="1_gbqyr"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ojclx"]
+points = PackedVector3Array(0, 0, 0, 25, -25, -1000, 25, 25, -1000, -25, -25, -1000, -25, 25, -1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2cwcr"]
+size = Vector3(0.5, 0.2, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_npkd1"]
+radius = 0.2
+
+[node name="Drone" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_gbqyr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="Camera3D"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/Area3D"]
+shape = SubResource("ConvexPolygonShape3D_ojclx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_2cwcr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_npkd1")

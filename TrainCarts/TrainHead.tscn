@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://dvwcc2n2u1gej"]
+
+[ext_resource type="Script" path="res://TrainCarts/TrainHead.cs" id="1_nmvpl"]
+[ext_resource type="Script" path="res://Tracks/Track.cs" id="3_gbstb"]
+[ext_resource type="PackedScene" uid="uid://db2q11newjd1g" path="res://TrainCarts/trainreal.glb" id="4_o32p3"]
+
+[sub_resource type="Curve3D" id="Curve3D_v77vt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.1),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgst2"]
+size = Vector3(6.5, 2.32654, 16.7216)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rl02l"]
+size = Vector3(1.3187, 0.133545, 1.10449)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_erxfc"]
+size = Vector3(5.23242, 0.0912781, 5.02466)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5umxx"]
+size = Vector3(1.35054, 0.142706, 4.86013)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pw84r"]
+height = 11.3575
+radius = 2.17495
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5xxnm"]
+points = PackedVector3Array(2.5, 0, 3.2, 3.35, 0, 3.5, 3.35, 0, 5.1, -2.5, 0, 3.2, -3.35, 0, 3.5, -3.35, 0, 5.1, 2.5, 1.4, 4.9, 3.35, 1.4, 5.2, 3.35, 1.4, 6.8, -2.5, 1.4, 4.9, -3.35, 1.4, 5.2, -3.35, 1.4, 6.8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kc1k0"]
+points = PackedVector3Array(0.8, 0, 1.85, 2.5, 0, 3.2, -0.8, 0, 1.85, -2.5, 0, 3.2, 0.8, 1.4, 3.55, 2.5, 1.4, 4.9, -0.8, 1.4, 3.55, -2.5, 1.4, 4.9)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tgtuf"]
+points = PackedVector3Array(0, 0, 0, 0.8, 0, 1.85, -0.8, 0, 1.85, 0, 1.4, 1.7, 0.8, 1.4, 3.55, -0.8, 1.4, 3.55)
+
+[node name="TrainHead" type="AnimatableBody3D" node_paths=PackedStringArray("TrackMain")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45009)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_nmvpl")
+CartLength = 17.0
+SpeedBase = 15.0
+TrackMain = NodePath("MainTrack")
+
+[node name="trainreal" parent="." instance=ExtResource("4_o32p3")]
+transform = Transform3D(0.667712, 0, 0, 0, 0.667712, 0, 0, 0, 0.667712, 0, 0, -11.3804)
+
+[node name="MainTrack" type="Path3D" parent="."]
+curve = SubResource("Curve3D_v77vt")
+script = ExtResource("3_gbstb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43573, -2.22574)
+shape = SubResource("BoxShape3D_jgst2")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62861, 4.3601, 5.59225)
+shape = SubResource("BoxShape3D_rl02l")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.666011, 5.23165, 3.64876)
+shape = SubResource("BoxShape3D_erxfc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 1.34906e-09, 7.3686e-10, -1.52534e-09, 0.811482, 0.584377, 1.9041e-10, -0.584377, 0.811482, 2.61369, 2.95507, 3.09727)
+shape = SubResource("BoxShape3D_5umxx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.97063, -6.13197)
+shape = SubResource("CylinderShape3D_pw84r")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.480533, -15.6628)
+shape = SubResource("ConvexPolygonShape3D_5xxnm")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.480533, -15.6628)
+shape = SubResource("ConvexPolygonShape3D_kc1k0")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.480533, -15.6628)
+shape = SubResource("ConvexPolygonShape3D_tgtuf")

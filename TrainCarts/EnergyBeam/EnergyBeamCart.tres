@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cdltsepesur2n"]
+
+[ext_resource type="PackedScene" uid="uid://dogxoxtvsh2xu" path="res://TrainCarts/EnergyBeam/EnergyBeamCart.tscn" id="1_541tg"]
+[ext_resource type="Texture2D" uid="uid://kunyildkrdwd" path="res://TrainCarts/EnergyBeam/tenergybeamicon.png" id="2_lwerh"]
+[ext_resource type="Script" path="res://TrainConfigs/CartData.cs" id="3_o0yke"]
+
+[resource]
+script = ExtResource("3_o0yke")
+CartScene = ExtResource("1_541tg")
+Icon = ExtResource("2_lwerh")

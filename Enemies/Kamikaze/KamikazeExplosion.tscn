@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://5o7kuk07nfwa"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_llwrx"]
+radius = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkv1l"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pvx7g"]
+material = SubResource("StandardMaterial3D_qkv1l")
+
+[node name="KamikazeExplosion" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_llwrx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("SphereMesh_pvx7g")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bifuu1163xwuj"]
+
+[ext_resource type="Script" path="res://TrainCarts/EnergyBeam/EnergyBeam.cs" id="1_is81b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_85ncb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyc2n"]
+
+[node name="EnergyBeam" type="Area3D"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+collision_layer = 0
+script = ExtResource("1_is81b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_85ncb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_eyc2n")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

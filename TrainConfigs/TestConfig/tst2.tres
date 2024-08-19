@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b2gahbpg2je86"]
+
+[ext_resource type="Resource" uid="uid://crw54a5ftiiof" path="res://TrainCarts/Mortar/MortarCart.tres" id="1_7yrl5"]
+[ext_resource type="Script" path="res://TrainConfigs/CartInstance.cs" id="1_rkwju"]
+
+[resource]
+script = ExtResource("1_rkwju")
+Data = ExtResource("1_7yrl5")

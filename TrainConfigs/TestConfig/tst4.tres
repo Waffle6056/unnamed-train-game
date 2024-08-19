@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://i6trutoy4awc"]
+
+[ext_resource type="Resource" uid="uid://bly20kbvf1m2w" path="res://TrainCarts/Shotgun/ShotgunCart.tres" id="1_e7y38"]
+[ext_resource type="Script" path="res://TrainConfigs/CartInstance.cs" id="1_ixxll"]
+
+[resource]
+script = ExtResource("1_ixxll")
+Data = ExtResource("1_e7y38")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj0cvo7rgd4tc"]
+
+[ext_resource type="Script" path="res://Enemies/Fish/Fish.cs" id="1_liky7"]
+[ext_resource type="PackedScene" uid="uid://beyrt41alkp4a" path="res://Enemies/Fish/fish.glb" id="2_kedum"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cmqya"]
+radius = 0.652156
+height = 4.18976
+
+[node name="Fish" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_liky7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.44744, 0, 0, 0, -6.32694e-08, -1.44744, 0, 1.44744, -6.32694e-08, 0, 0.0210908, 0.400195)
+shape = SubResource("CapsuleShape3D_cmqya")
+
+[node name="fish" parent="." instance=ExtResource("2_kedum")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)

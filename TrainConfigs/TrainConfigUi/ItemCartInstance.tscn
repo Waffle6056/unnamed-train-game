@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxdsm1g7p4rbl"]
+
+[ext_resource type="Script" path="res://TrainConfigs/TrainConfigUi/ItemCartInstance.cs" id="1_e6k0y"]
+[ext_resource type="Texture2D" uid="uid://c8l2kpwn7u0wq" path="res://icon.svg" id="2_a8rpx"]
+
+[node name="ItemCartInstance" type="CenterContainer" node_paths=PackedStringArray("Handle")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_e6k0y")
+Handle = NodePath("Handle")
+DefaultIcon = ExtResource("2_a8rpx")
+
+[node name="Handle" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = ExtResource("2_a8rpx")
+
+[connection signal="button_up" from="Handle" to="." method="OnRelease"]
