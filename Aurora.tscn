@@ -27,8 +27,8 @@ render_priority = 0
 shader = ExtResource("1_xrloq")
 shader_parameter/GreenOffset = 350.0
 shader_parameter/VioletOffset = 1.45
-shader_parameter/ZXStretch = 8.48
-shader_parameter/ZYStretch = 0.01
+shader_parameter/ZXStretch = 7.79
+shader_parameter/ZYStretch = 0.08
 shader_parameter/ZTimeFactor = 0.001
 shader_parameter/ZAmplitude = 600.0
 shader_parameter/YAmplitude = 0.4
@@ -62,8 +62,7 @@ script = ExtResource("3_elcwx")
 mapdisplay = NodePath("../TextureRect")
 SheetTexture = ExtResource("4_wcq8t")
 ScrollSpeed = 0.1
-DistortionMaxCD = 1.0
-Distortions = 7
+Distortions = 15
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 40.0

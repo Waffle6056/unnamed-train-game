@@ -10,7 +10,7 @@ uniform float ZYStretch = 1.0;
 uniform float ZTimeFactor = 1.0;
 uniform float ZAmplitude = 50.0;
 uniform sampler2D YMap : hint_default_black;
-uniform sampler2D DistortionMap[7];
+uniform sampler2D DistortionMap[17];
 uniform float YAmplitude = 50.0;
 uniform sampler2D TransparencyMap : hint_default_black;
 uniform float TXStretch = 1.0;
