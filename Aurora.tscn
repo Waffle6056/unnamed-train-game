@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf3xk75pitfsy"]
+[gd_scene load_steps=12 format=3 uid="uid://bf3xk75pitfsy"]
 
 [ext_resource type="Shader" path="res://testshader.gdshader" id="1_xrloq"]
+[ext_resource type="Texture2D" uid="uid://1wmdkdvqm7aq" path="res://noiseTexture.png" id="2_aoaxy"]
 [ext_resource type="Script" path="res://AuroraMap.cs" id="3_elcwx"]
 [ext_resource type="Texture2D" uid="uid://bpujama8is0xq" path="res://noiseTexture (2).png" id="3_lrgtb"]
 [ext_resource type="Texture2D" uid="uid://bkeaq7a0b0eul" path="res://noiseTexture (3).png" id="4_o2380"]
@@ -25,24 +26,25 @@ tonemap_mode = 3
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7p7uo"]
 render_priority = 0
 shader = ExtResource("1_xrloq")
-shader_parameter/GreenOffset = 350.0
+shader_parameter/GreenOffset = 500.0
 shader_parameter/VioletOffset = 1.45
-shader_parameter/ZXStretch = 7.79
-shader_parameter/ZYStretch = 0.08
+shader_parameter/ZXStretch = 1.385
+shader_parameter/ZYStretch = 0.03
 shader_parameter/ZTimeFactor = 0.001
-shader_parameter/ZAmplitude = 600.0
-shader_parameter/YAmplitude = 0.4
+shader_parameter/ZAmplitude = 2000.0
+shader_parameter/YAmplitude = 0.25
 shader_parameter/TXStretch = 0.5
-shader_parameter/TYStretch = 10.0
-shader_parameter/TTimeFactor = 0.03
-shader_parameter/FadeFactor = 300.0
-shader_parameter/FadeOffset = -50.0
+shader_parameter/TYStretch = 2.245
+shader_parameter/TTimeFactor = 0.01
+shader_parameter/FadeFactor = 5e+10
+shader_parameter/FadeOffset = -1000.0
 shader_parameter/TimeSec = 0.0
 shader_parameter/Width = 10000.0
 shader_parameter/ZMap = ExtResource("4_o2380")
 shader_parameter/YMap = ExtResource("3_lrgtb")
 shader_parameter/DistortionMap = null
 shader_parameter/TransparencyMap = ExtResource("4_o2380")
+shader_parameter/BackgroundMap = ExtResource("2_aoaxy")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pmk81"]
 flip_faces = true
@@ -57,13 +59,16 @@ environment = SubResource("Environment_5lote")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("mapdisplay")]
 material_override = SubResource("ShaderMaterial_7p7uo")
+ignore_occlusion_culling = true
 mesh = SubResource("PlaneMesh_pmk81")
 script = ExtResource("3_elcwx")
 mapdisplay = NodePath("../TextureRect")
 SheetTexture = ExtResource("4_wcq8t")
 ScrollSpeed = 0.1
-Distortions = 15
+Distortions = 20
+TimeSpeed = 0.1
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0

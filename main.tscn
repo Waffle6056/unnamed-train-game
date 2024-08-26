@@ -102,4 +102,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.6103, 0, -364.859)
 [node name="testterrain" parent="." instance=ExtResource("10_tm2eo")]
 
 [node name="Node3D" parent="." instance=ExtResource("11_dtqd6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 600, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2000, 0)

@@ -10,9 +10,10 @@ uniform float ZYStretch = 1.0;
 uniform float ZTimeFactor = 1.0;
 uniform float ZAmplitude = 50.0;
 uniform sampler2D YMap : hint_default_black;
-uniform sampler2D DistortionMap[17];
+uniform sampler2D DistortionMap[20];
 uniform float YAmplitude = 50.0;
 uniform sampler2D TransparencyMap : hint_default_black;
+uniform sampler2D BackgroundMap : hint_default_black;
 uniform float TXStretch = 1.0;
 uniform float TYStretch = 1.0;
 uniform float TTimeFactor = 1.0;
@@ -22,6 +23,23 @@ uniform float FadeOffset = 4.0;
 
 uniform float TimeSec = 0;
 uniform float Width = 10000.0;
+
+float GetHeight(vec2 uv){
+	return min(-texture(ZMap,uv * vec2(ZXStretch,ZYStretch) + TIME * ZTimeFactor).r * ZAmplitude, 
+	-texture(BackgroundMap,uv).r * ZAmplitude / 7.0);
+}
+
+vec3 getNormal(vec2 uv) {
+	const vec3 off = vec3(-1,0,1);
+    vec2 texelSize = 1.0 / vec2(textureSize(ZMap, 0)) / 2.0;
+
+    float left = GetHeight( uv + texelSize * off.xy);
+    float right = GetHeight( uv + texelSize * off.zy);
+    float top = GetHeight( uv + texelSize * off.yx);
+    float down = GetHeight( uv + texelSize * off.yz);
+
+    return normalize(vec3(left-right, 2.0, down-top));
+}
 
 float DistanceInfluence(float Dis, float Radius){
 	float Percent = Dis/Radius;
@@ -60,11 +78,12 @@ vec2 Rotated(vec2 uv, sampler2D Map){
 
 void vertex() {
 	//VERTEX.xz += texture(ZMap,(VERTEX + NODE_POSITION_WORLD).xz * vec2(ZXStretch,ZYStretch) + TIME * ZTimeFactor).r * 50.0 - 12.0;
-	VERTEX.y -= texture(ZMap,UV * vec2(ZXStretch,ZYStretch) + TIME * ZTimeFactor).r * ZAmplitude;
-	//VERTEX.y -= texture(ZMap,UV).r * ZAmplitude;
+	VERTEX.y += GetHeight(UV);
+	//VERTEX.y -= texture(BackgroundMap,UV).r * ZAmplitude/7.0;
 	for (int i = 0; i < DistortionMap.length(); i++)
 		VERTEX.xz += Rotated(LocalToUV(VERTEX.xz),DistortionMap[i]) + NODE_POSITION_WORLD.xz - VERTEX.xz;
-
+	
+	//NORMAL = getNormal(UV);
 	//ALBEDO = texture(ZMap,UV).rgb;
 
 	//VERTEX.x -= texture(YMap,UV * vec2(YXStretch,YYStretch) + TIME * YTimeFactor).r * YAmplitude;
@@ -79,13 +98,23 @@ void fragment() {
 	float g = min(1,(local_vertex.y+GreenOffset)/5.0);
 	float rb = VioletOffset-g;
 
-	vec3 s = vec3(rb,g,rb);
+	vec3 s = vec3(0,1,0);//*(texture(TransparencyMap,UV * vec2(TXStretch,0.3)).rgb + 0.7);
 	// Called for every pixel the material is visible on.
 
 
 	ALBEDO = s;
-	ALPHA = (-local_vertex.y+FadeOffset)/FadeFactor;
-	ALPHA -= texture(TransparencyMap,UV * vec2(TXStretch,TYStretch) + TIME * TTimeFactor).r;
+	float dis = abs(local_vertex.y-FadeOffset);
+	//if (dis > 200.0)
+	//	ALPHA -= 0.2;
+	float normal = abs(getNormal(UV).g);
+//	ALPHA -= normal*normal*normal*normal*normal*FadeFactor;
+	ALPHA -= min(min(
+				normal*normal*normal*normal*normal*FadeFactor,
+				abs(getNormal(UV).g)*50.0),
+				0.5
+				);
+	ALPHA *= 1.0+texture(TransparencyMap,UV * vec2(TXStretch,TYStretch) + TIME * TTimeFactor).r * 0.5;
+	ALPHA -= dis * 0.00064;
 	//vec4 rgba = texture(YMap,UV);
 	//vec2 vecDis = rgba.gb-UV;
 	//float Dis = distance(UV,rgba.gb);
@@ -94,7 +123,3 @@ void fragment() {
 		//ALBEDO = vec3(0,0,1);
 }
 
-//void light() {
-	// Called for every pixel for every light affecting the material.
-	// Uncomment to replace the default light processing function with this one.
-//}

@@ -20,7 +20,9 @@ public partial class AuroraMap : MeshInstance3D
 	[Export]
 	public int Distortions = 1;
 	[Export]
-	public int ActiveDistortions = 10;
+	public int DistortionsActive = 10;
+	[Export]
+	public float DistortionSwapTime = 7;
 
 	protected ImageTexture[] DistortionTexture;
 	public Image[] DistortionMap;
@@ -56,7 +58,8 @@ public partial class AuroraMap : MeshInstance3D
 		mapdisplay.Texture = DistortionTexture[0];
 		
 		TranslateRatio = (float) SheetTexture.GetWidth() / Len;
-		AddDistortions(0);
+		FullAddDistortions();
+		AddDistortions();
 	}
 	
 	
@@ -110,15 +113,16 @@ public partial class AuroraMap : MeshInstance3D
 		}
 		return Radius;
 	}
-	public async void AddDistortion(int d){
+	public async void AddDistortion(int d, int DActive){
 		
 		
 		//GD.Print(Center +" "+ Radius);
 		float TimeScale = (float)RD.NextDouble() / 2 + 0.5f;
 		//GD.Print("TimeScale : "+C.R+" CurrentTime : "+TimeSec+" Time To Neutral : "+((Mathf.Pi - TimeSec % Mathf.Pi) / C.R / TimeSpeed));
-		await ToSignal(GetTree().CreateTimer((Mathf.Pi - TimeSec * TimeScale % Mathf.Pi) / TimeScale / TimeSpeed),"timeout");
+		float TimeToInsert = (Mathf.Pi - TimeSec * TimeScale % Mathf.Pi) / TimeScale / TimeSpeed;
+		await ToSignal(GetTree().CreateTimer(TimeToInsert),"timeout");
 		Vector2I Center = new Vector2I(RD.Next(Len),RD.Next(Len));
-		int Radius = MaxRadius(Center, d, Len/10);
+		int Radius = MaxRadius(Center, d, Len/5);
 		if (Radius < 10)
 			return;
 		Radius = RD.Next(Radius/4*3,Radius);
@@ -133,7 +137,7 @@ public partial class AuroraMap : MeshInstance3D
 			}
 		}
 		DistortionTexture[d].Update(DistortionMap[d]);
-		await ToSignal(GetTree().CreateTimer(ActiveDistortions * TimeScale),"timeout");
+		await ToSignal(GetTree().CreateTimer(DActive * DistortionSwapTime / TimeSpeed - TimeToInsert),"timeout");
 		await ToSignal(GetTree().CreateTimer((Mathf.Pi - TimeSec * TimeScale % Mathf.Pi) / TimeScale / TimeSpeed),"timeout");
 		
 		for (int i = Center.Y-Radius; i <= Center.Y+Radius; i++){
@@ -148,14 +152,26 @@ public partial class AuroraMap : MeshInstance3D
 		}
 		DistortionTexture[d].Update(DistortionMap[d]);
 	}
-	public async void AddDistortions(int DistortionInd){
-		for (int d = 0; d < 30; d++){
-			AddDistortion(DistortionInd);
+	
+	int DistortionInd = 0;
+	
+	public async void AddDistortions(){
+		for (int d = 0; d < 40; d++){
+			AddDistortion(DistortionInd, DistortionsActive);
 			
 		}
-		await ToSignal(GetTree().CreateTimer(TimeSpeed),"timeout");
-		AddDistortions((DistortionInd+1)%Distortions);
+		await ToSignal(GetTree().CreateTimer(DistortionSwapTime/TimeSpeed),"timeout");
+		DistortionInd = (DistortionInd+1)%Distortions;
+		AddDistortions();
 		//DistortionMap.SavePng("D:/godot/train/noiseTexture (2).png");
+	}
+	public void FullAddDistortions(){
+		for (int i = 0; i < DistortionsActive - 1; i++){	
+			DistortionInd = (DistortionInd+1)%Distortions;
+			for (int d = 0; d < 40; d++){
+				AddDistortion(DistortionInd,DistortionsActive-i);
+			}
+		}
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
