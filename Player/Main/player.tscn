@@ -2144,6 +2144,7 @@ WeaponsAudio = NodePath("PlayerCamera/AudioStreamPlayer3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00254239, -0.278724, -0.3696)
 current = true
 fov = 90.0
+far = 8000.0
 
 [node name="Area3D" type="Area3D" parent="PlayerCamera"]
 collision_layer = 0

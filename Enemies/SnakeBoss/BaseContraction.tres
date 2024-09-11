@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bxyoxe2bwv6jn"]
+
+[ext_resource type="Script" path="res://Enemies/SnakeBoss/Contraction.cs" id="1_c46fa"]
+
+[resource]
+script = ExtResource("1_c46fa")
+Base = 1
+End = 40
+Axis = Vector3(1, 0, 0)
+Rotation = 1.0

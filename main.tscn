@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bef36ejw2e351"]
+[gd_scene load_steps=17 format=3 uid="uid://bef36ejw2e351"]
 
 [ext_resource type="PackedScene" uid="uid://dvwcc2n2u1gej" path="res://TrainCarts/TrainHead.tscn" id="1_l34kq"]
 [ext_resource type="PackedScene" uid="uid://qlg13q8ll4e7" path="res://Player/UI/MovesetUI.tscn" id="1_w27dm"]
@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://by2pu1dxo3np4" path="res://Enemies/Spitter/Spitter.tscn" id="7_kqrjk"]
 [ext_resource type="PackedScene" uid="uid://cj0cvo7rgd4tc" path="res://Enemies/Fish/Fish.tscn" id="8_larcg"]
 [ext_resource type="PackedScene" uid="uid://qclxxw0jn4hp" path="res://testterrain.glb" id="10_tm2eo"]
-[ext_resource type="PackedScene" uid="uid://bf3xk75pitfsy" path="res://Aurora.tscn" id="11_dtqd6"]
+[ext_resource type="PackedScene" uid="uid://bf3xk75pitfsy" path="res://AuroraStuff/Aurora.tscn" id="11_dtqd6"]
+[ext_resource type="PackedScene" uid="uid://6dfugv75p4ni" path="res://Enemies/SnakeBoss/Snake.tscn" id="12_4lhu5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5v55o"]
 sky_top_color = Color(0.180392, 0.196078, 0.180392, 1)
@@ -102,4 +103,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.6103, 0, -364.859)
 [node name="testterrain" parent="." instance=ExtResource("10_tm2eo")]
 
 [node name="Node3D" parent="." instance=ExtResource("11_dtqd6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2000, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 750, 0)
+
+[node name="Node3D2" parent="." instance=ExtResource("12_4lhu5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6148, 143.653, 46.5442)
