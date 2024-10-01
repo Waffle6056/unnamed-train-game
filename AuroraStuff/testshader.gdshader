@@ -25,7 +25,7 @@ uniform float TimeSec = 0;
 uniform float Width = 10000.0;
 
 float GetHeight(vec2 uv){
-	return min(-texture(ZMap,uv * vec2(ZXStretch,ZYStretch) + TIME * ZTimeFactor).r * ZAmplitude, 
+	return min(-texture(ZMap,uv * vec2(ZXStretch,ZYStretch) + TIME * ZTimeFactor).r * ZAmplitude,
 	-texture(BackgroundMap,uv).r * ZAmplitude / 7.0);
 }
 
@@ -120,8 +120,8 @@ void fragment() {
 
 	//if (dis > 200.0)
 	//	ALPHA -= 0.2;
-	
-	
+
+
 	ALBEDO = s;
 	float normal = abs(getNormal(UV).g);
 //	ALPHA -= normal*normal*normal*normal*normal*FadeFactor;
@@ -139,4 +139,3 @@ void fragment() {
 	//if (rgba.gb == UV)
 		//ALBEDO = vec3(0,0,1);
 }
-

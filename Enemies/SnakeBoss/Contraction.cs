@@ -1,6 +1,6 @@
 using Godot;
 using System;
-
+[Tool]
 public partial class Contraction : Resource
 {
 	[Export]
@@ -10,5 +10,7 @@ public partial class Contraction : Resource
 	[Export]
 	public Vector3 Axis;
 	[Export]
-	public float Rotation;
+	public float Duration;
+	[Export]
+	public float SnapRotation;
 }

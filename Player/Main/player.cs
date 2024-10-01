@@ -7,13 +7,20 @@ public partial class player : CharacterBody3D
 	[Export]
 	public Vector3 CharacterSpeed = new Vector3(5,5,5);
 	[Export]
+	public float SprintIncrease = 1.25f;
+	[Export]
 	public Vector3 DroneSpeed = new Vector3(15,15,15);
 	[Export]
 	public RayCast3D LedgeDetect;
 	public float LedgeCooldown = 0;
 	[Export]
 	public float CameraSpeed = .0001f;
+	[Export]
 	public Camera3D Camera;
+	[Export]
+	public Node3D CameraPivot;
+	[Export]
+	public Node3D Rig;
 	[Export]
 	public Skeleton3D Skeleton;
 	[Export]
@@ -47,17 +54,50 @@ public partial class player : CharacterBody3D
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		//GD.Print(GetChild(0).Name);
-		Camera = (Camera3D) GetChild(0);
 	}
 	private float ClimbCooldown = 0f;
-	private void CharacterInputs(double delta){
-		if (Input.MouseMode == Input.MouseModeEnum.Captured){
-			Vector2 mVelo = Input.GetLastMouseVelocity();
-			RotateY(-mVelo.X * CameraSpeed);
-			Camera.RotateX(Mathf.Clamp(-mVelo.Y * CameraSpeed, Mathf.Pi/-2-Camera.Rotation.X,Mathf.Pi/2-Camera.Rotation.X));
+	private void RotateCamPivot(){
+		Vector2 mVelo = Input.GetLastMouseVelocity();
+		CameraPivot.RotateY(-mVelo.X * CameraSpeed);
+		CameraPivot.Rotate(CameraPivot.Basis[0],Mathf.Clamp(-mVelo.Y * CameraSpeed, Mathf.Pi/-2-Camera.Rotation.X,Mathf.Pi/2-Camera.Rotation.X));
+	}
+	private void MovementAnims(Vector3 InputVelo){
+		if (InputVelo.LengthSquared() > 0){
+			Rig.GlobalBasis = Rig.GlobalBasis.Orthonormalized().Slerp(Basis.LookingAt(-InputVelo).Orthonormalized(), 0.2f);
+			//GD.Print((-InputVelo+Rig.GlobalPosition));
+			if (Input.IsActionPressed("Shift"))
+				Animations.Play("BRun");
+			else
+				Animations.Play("BWalk",-1,CharacterSpeed.X);
 		}
-		Vector3 Forward = -Basis[2].Normalized();
-		Vector3 Right = Basis[0].Normalized();
+		else
+			Animations.Play("BIdle");
+	}
+	private void LedgeHop(){
+		Vector3 Col = LedgeDetect.GetCollisionPoint();
+		PhysicsRayQueryParameters3D RayInfo = PhysicsRayQueryParameters3D.Create(Col+new Vector3(0,2f+1f,0), Col+new Vector3(0,-1f,0));
+		var Ray = GetWorld3D().DirectSpaceState.IntersectRay(RayInfo);
+		if (Ray.ContainsKey("position") && ((Vector3) Ray["position"]).Y - GlobalPosition.Y < 1f){
+			//Print("test");
+			Target = (Vector3) Ray["position"];
+			Velocity += new Vector3(0,.75f,0) * CharacterSpeed.Y + -Camera.GlobalBasis[2] * CharacterSpeed.X * new Vector3(1,0,1); // GlobalPosition - (Vector3) Ray["position"];
+			LedgeCooldown = 0.2f;
+		}
+	}
+	private void Jump(double delta){
+		if (LedgeCooldown > 0)
+			LedgeCooldown -= (float) delta;
+		if (Input.IsActionJustPressed("Jump")){
+			if (IsOnFloor())
+				Velocity += new Vector3(0,1,0) * CharacterSpeed.Y;
+			else if (LedgeDetect.IsColliding() && LedgeCooldown <= 0){
+				LedgeHop();
+			}
+		}
+	}
+	private void PlayerMovement(double delta){
+		Vector3 Forward = -new Vector3(Camera.GlobalBasis[2].X,0,Camera.GlobalBasis[2].Z).Normalized();
+		Vector3 Right = new Vector3(Camera.GlobalBasis[0].X,0,Camera.GlobalBasis[0].Z).Normalized();
 		Vector3 InputVelo = new Vector3(0,0,0);
 
 		if (Input.IsActionPressed("Left"))
@@ -69,46 +109,18 @@ public partial class player : CharacterBody3D
 		if (Input.IsActionPressed("Right"))
 			InputVelo += Right;
 	
-		if (Input.IsActionPressed("Up")){
+		if (Input.IsActionPressed("Up"))
 			InputVelo += Forward;
-			if (Input.IsActionPressed("Shift"))
-				InputVelo *= 1.25f;
-		}
-		
-		if (InputVelo.LengthSquared() > 0){
-			if (Input.IsActionPressed("Shift") && Input.IsActionPressed("Up"))
-				Animations.Play("BRun");
-			else if (Input.IsActionPressed("Down")){
-				//Animations.Play("BWalk",0);
-				Animations.PlayBackwards("BWalk");
-			}
-			else
-				Animations.Play("BWalk");
-		}
-		else
-			Animations.Play("BIdle");
-		
+			
 		InputVelo = InputVelo.Normalized() * CharacterSpeed;
-		if (LedgeCooldown > 0)
-			LedgeCooldown -= (float) delta;
-		if (Input.IsActionJustPressed("Jump")){
-			if (IsOnFloor())
-				Velocity += new Vector3(0,1,0) * CharacterSpeed.Y;
-			else if (LedgeDetect.IsColliding() && LedgeCooldown <= 0){
-				Vector3 Col = LedgeDetect.GetCollisionPoint();
-				PhysicsRayQueryParameters3D RayInfo = PhysicsRayQueryParameters3D.Create(Col+new Vector3(0,2f+1f,0), Col+new Vector3(0,-1f,0));
-				var Ray = GetWorld3D().DirectSpaceState.IntersectRay(RayInfo);
-				if (Ray.ContainsKey("position") && ((Vector3) Ray["position"]).Y - GlobalPosition.Y < 1f){
-					//Print("test");
-					Target = (Vector3) Ray["position"];
-					Velocity += new Vector3(0,1,0) * CharacterSpeed.Y + -Basis[2] * 5; // GlobalPosition - (Vector3) Ray["position"];
-					LedgeCooldown = 0.2f;
-				}
-			}
-
-		}
+		if (Input.IsActionPressed("Shift"))
+				InputVelo *= SprintIncrease;
+		
+		MovementAnims(InputVelo);
 		
 		Velocity += InputVelo;
+		
+		
 		if (MoveAndSlide()){
 			Vector3 oth = GetLastSlideCollision().GetColliderVelocity();
 			Velocity = new Vector3(oth.X, Velocity.Y, oth.Z);
@@ -119,6 +131,13 @@ public partial class player : CharacterBody3D
 			Velocity += new Vector3(0,-10*(float)delta,0);
 		else
 			Velocity *= new Vector3(0f,1,0f);
+	}
+	
+	private void CharacterInputs(double delta){
+		if (Input.MouseMode == Input.MouseModeEnum.Captured)
+			RotateCamPivot();
+		Jump(delta);
+		PlayerMovement(delta);
 	}
 	
 	private void DroneInputs(double delta){
@@ -157,7 +176,7 @@ public partial class player : CharacterBody3D
 		else{
 			Drone.QueueFree();
 			Camera.Visible = false;
-			Camera = (Camera3D)GetChild(0);
+			Camera = (Camera3D)CameraPivot.GetChild(0);
 			Camera.Visible = true;
 		}
 		Camera.Current = true;
@@ -171,19 +190,22 @@ public partial class player : CharacterBody3D
 			return Basis.LookingAt(-Camera.GlobalBasis[2]*Camera.Far - Ori);
 	}
 	HashSet<Node3D> entered = new HashSet<Node3D>();
-	private void TargetGun(double delta){
-		if (GunCD > 0)
-			GunCD -= delta;
+	private void TargetGunAnims(){
 		if (Input.IsActionJustPressed("PrimaryFire")){
 			WeaponsAnim.Play("MonacleOn");
 			entered = new HashSet<Node3D>();
 		}
 		if (Input.IsActionJustReleased("PrimaryFire"))
 			WeaponsAnim.PlayBackwards("MonacleOn");
+	}
+	private void TargetGun(double delta){
+		if (GunCD > 0)
+			GunCD -= delta;
+		
+		TargetGunAnims();
 		if (Input.IsActionPressed("PrimaryFire") && GunCD <= 0){
 			foreach (Node3D other in ((Area3D)Camera.GetChild(0)).GetOverlappingBodies()){
 			//if (other.IsInGroup("Enemy"))
-				
 				if (other.IsInGroup("Enemy")){
 					if (!entered.Contains(other)){
 						entered.Add(other);
@@ -260,7 +282,13 @@ public partial class player : CharacterBody3D
 		
 		//GD.Print(Velocity);
 		//GD.Print(Camera.Quaternion);
-		Skeleton.SetBonePoseRotation(Skeleton.FindBone("Bone.005"),new Quaternion(Camera.Basis.Inverse().Rotated(new Vector3(1,0,0),-0.5f*Mathf.Pi)));
+		Basis boneBasis = (Skeleton.GlobalBasis.Inverse() * RemoteAim(GlobalPosition)).Orthonormalized();
+		boneBasis = boneBasis.Rotated(boneBasis[1],(float)Math.PI);
+		Skeleton.SetBoneGlobalPose(Skeleton.FindBone("Bone.005"),
+			new Transform3D(
+				boneBasis,
+				Skeleton.GetBoneGlobalPose(Skeleton.FindBone("Bone.005")).Origin
+			));
 		//GD.Print(Skeleton.GetBonePose(Skeleton.FindBone("Bone.005")));
 		if (Input.IsActionJustPressed("Switch"))
 			SwitchCamera();
@@ -275,8 +303,9 @@ public partial class player : CharacterBody3D
 			RemoteGun();
 		}
 		TripwireGun();
-		((Node3D)GetParent().FindChild("TargetCursor")).GlobalPosition = TrainHead.GlobalPosition;
 		
+		
+		((Node3D)GetParent().FindChild("TargetCursor")).GlobalPosition = TrainHead.GlobalPosition;
 		((WorldEnvironment)GetParent().FindChild("WorldEnvironment")).Environment.BackgroundEnergyMultiplier = .75f+Mathf.Sin(d+=(float)delta/5f)/4f;
 	}
 }
